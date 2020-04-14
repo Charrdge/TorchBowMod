@@ -34,16 +34,15 @@ public class TorchBowMod {
     public static final String name = "TorchBowMod";
     public static final String VERSION = "1.4";
     public static Logger loggers = LogManager.getLogger("TorchBowMod");
+
     @SidedProxy(clientSide = "mod.torchbowmod.ClientProxy", serverSide = "mod.torchbowmod.ServerProxy")
     public static CommonProxy proxy;
+    
     public static Item torchbow;
     public static Item StorageBox;
-    //public static Item torchholder;
+    public static Item torchbandolier;
     public static Item torchbinder;
     public static Block glowstonetorch;
-    //public static int EntityTorchRenderID;
-    //public static boolean LittleMaidMob = false;
-    public static CreativeTabs TorchBowModTab;
 
     private static final LanguageMap fallbackTranslator = new LanguageMap();
 
@@ -53,14 +52,6 @@ public class TorchBowMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        TorchBowModTab = new CreativeTabs("TorchBowModTab") {
-            public ItemStack getTabIconItem() {
-                return new ItemStack(torchbow);
-            }
-
-//master
-        };
-
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitytorch"), EntityTorch.class, "EntityTorch", 3/*PlasticConfig.PlasticArrowEntityID*/, this, 60, 5, true);
         proxy.registerRenderes();
         torchbow = new TorchBow();
@@ -129,6 +120,19 @@ public class TorchBowMod {
             }
         } else {
             loggers.info(Translation("log.gc.unload"));
+        }
+        loggers.info(Translation("log.tb.check"));
+        if (Loader.isModLoaded("torchbandolier")) {
+
+            try {
+                this.torchbandolier = ForgeRegistries.ITEMS.getValue(new ResourceLocation("torchbandolier", "torch_bandolier"));
+                loggers.info(Translation("log.tb.load"));
+            } catch (Throwable t) {
+                loggers.warn(Translation("log.tb.error"));
+                loggers.warn(t);
+            }
+        } else {
+            loggers.info(Translation("log.tb.unload"));
         }
 
 		/*
