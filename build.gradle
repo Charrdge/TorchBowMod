@@ -14,7 +14,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 version = "1.0"
 tasks.withType(Jar) {compileJava.options.encoding = 'UTF-8'}
 tasks.withType(Jar) {compileApiJava.options.encoding = 'UTF-8'}
-group = "com.noriokun4649.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.noriokun4649.torchbowmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "torchbowmod"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
